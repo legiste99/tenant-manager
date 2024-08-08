@@ -3,29 +3,24 @@ const router = express.Router();
 const Room = require('../models/room');
 const Tenant = require('../models/tenant');
 
-// create a new tenant and add tenant Id to the room
-router.post('/', async (request, response)=>{
-    const tenant = new Tenant(request.body);
+// create a new room
+router.post('/', async(request, response)=>{
+    const room = new Room(request.body);
     try{
-        await tenant.save();
-        await Room.findByIdAndUpdate(tenant.room_id, {
-            $push:{
-                tenants: tenant._id
-            }
-        })
-        response.status(201).send(tenant);
-    }catch (error) {
+        await room.save();
+        response.status(201).send(room);
+    }catch (error){
         response.status(400).send(error);
     }
 })
 
-// get all tenants and populate room info
-router.get('/', async (request, response)=>{
-    try{
-        const tenants = await Tenant.find().populate('room_id');
-        request.status(200).send(tenants);
-    }catch (error){
-        response.status(400).send(error);
+// get all rooms and populate tenant info
+router.get('/', async (request, response) => {
+    try {
+        const rooms = await Room.find().populate('tenants');
+        response.status(200).send(rooms);
+    } catch (error) {
+        response.status(500).send(error);
     }
 })
 
