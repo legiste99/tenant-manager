@@ -27,6 +27,10 @@ const tenantSchema = new mongoose.Schema({
     monthly_rent: {
         type: Number,
         required: true
+    },
+    outstanding_amount: {
+        type: Number,
+        default: 0
     }
 })
 

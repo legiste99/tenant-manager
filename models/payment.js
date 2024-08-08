@@ -21,6 +21,14 @@ const Schema = new mongoose.Schema({
     receipt_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Receipt'
+    },
+    payment_month: {
+        type: Number, // month as a number (1-12)
+        required: true
+    },
+    payment_year: {
+        type: Number, // year
+        required: true
     }
 })
 

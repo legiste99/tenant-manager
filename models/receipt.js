@@ -23,6 +23,23 @@ const receiptSchema = new mongoose.Schema({
         type: String,
         default: 'pending',
         required: true
+    },
+    amount_due: {
+        type: Number,
+        required: true
+    },
+    paid_by: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Tenant',
+        required: true
+    },
+    payment_month: {
+        type: Number, // month as a number (1-12)
+        required: true
+    },
+    payment_year: {
+        type: Number, // year
+        required: true
     }
 })
 
